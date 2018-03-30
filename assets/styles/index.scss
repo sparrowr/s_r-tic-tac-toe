@@ -1,2 +1,21 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+$background-color: #003;
+$font-color: #9ff;
+$header-color: #0cc;
+
+body {
+  background-color: $background-color;
+  color: $font-color;
+}
+
+h1 {
+  color: $header-color;
+}
+
+.square {
+  border: 3px solid $header-color;
+  height: 150px;
+}
