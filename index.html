@@ -13,20 +13,11 @@
     </head>
     <body>
       <h1>Tic-Tac-Toe Board</h1>
-      <div class="row">
-        <div class="col-xs-4 square" id="square0">.col-xs-4</div>
-        <div class="col-xs-4 square" id="square1">.col-xs-4</div>
-        <div class="col-xs-4 square" id="square2">.col-xs-4</div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4 square" id="square3">.col-xs-4</div>
-        <div class="col-xs-4 square" id="square4">.col-xs-4</div>
-        <div class="col-xs-4 square" id="square5">.col-xs-4</div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4 square" id="square6">.col-xs-4</div>
-        <div class="col-xs-4 square" id="square7">.col-xs-4</div>
-        <div class="col-xs-4 square" id="square8">.col-xs-4</div>
-      </div>
+      <form id="start-game" class="border">
+        <input type="submit" value="Start game!" class="btn">
+      </form>
+      <div id="game-board">
+        <!-- currently drawn in events.js -->
+    </div>
     </body>
 </html>

@@ -17,5 +17,10 @@ h1 {
 
 .square {
   border: 3px solid $header-color;
+  font-size: 30px;
   height: 150px;
+}
+
+.btn {
+  color: $background-color;
 }
