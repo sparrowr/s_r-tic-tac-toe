@@ -34,7 +34,7 @@ const changePasswordFailure = function () {
   $('#message').css('background-color', '#f99')
 }
 
-const signOutSuccess = function (data) {
+const signOutSuccess = function () {
   $('#message').text('Successfully signed out!')
   $('#message').css('background-color', '#cfc')
   store.user = null

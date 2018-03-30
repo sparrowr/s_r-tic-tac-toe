@@ -27,7 +27,7 @@ const signIn = function (data) {
 
 const changePassword = function (data) {
   return $.ajax({
-    url: config.apiUrl + '/change-password',
+    url: config.apiUrl + '/change-password/' + store.user.id,
     method: 'PATCH',
     headers: {
       contentType: 'application/json',
@@ -38,8 +38,9 @@ const changePassword = function (data) {
 }
 
 const signOut = function () {
+  console.log('signout request reached api.js')
   return $.ajax({
-    url: config.apiUrl + '/sign-out',
+    url: config.apiUrl + '/sign-out/' + store.user.id,
     method: 'DELETE',
     headers: {
       contentType: 'application/json',
