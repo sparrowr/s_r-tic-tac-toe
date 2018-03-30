@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-This is a tic-tac-toe game project built by Sparrow Rubin at General Assembly's Web Development Immersive. 
+This is a tic-tac-toe game project built by Sparrow Rubin at General Assembly's Web Development Immersive.
 
 ## Structure
 
