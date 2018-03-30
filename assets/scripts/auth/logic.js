@@ -146,8 +146,7 @@ const showAuth = function showAuth () {
     signOutButton.setAttribute('value', 'Sign out')
     signOut.appendChild(signOutButton)
     signOut.addEventListener('submit', onSignOut)
-    document.getElementById('auth-town').appendChild(signOutButton)
-    debugger
+    document.getElementById('auth-town').appendChild(signOut)
   } else {
     const signUpShow = document.createElement('form')
     const signUpShowButton = document.createElement('input')
