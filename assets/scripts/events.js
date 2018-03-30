@@ -1,16 +1,24 @@
 'use strict'
 
 // const getFormFields = require('../../lib/get-form-fields')
-const ui = require('./game/ui')
+const gameUi = require('./game/ui')
+const authLogic = require('./auth/logic')
 
 const onStartGame = function onStartGame () {
   event.preventDefault()
-  console.log('event handler is alive!')
-  ui.newBoard()
+  console.log('game is starting!')
+  gameUi.newBoard()
+}
+
+const onShowAuth = function onShowAuth () {
+  event.preventDefault()
+  console.log('auth display starting!')
+  authLogic.showAuth()
 }
 
 const addHandlers = () => {
   $('#start-game').on('submit', onStartGame)
+  $('#show-auth').on('submit', onShowAuth)
 }
 
 module.exports = {

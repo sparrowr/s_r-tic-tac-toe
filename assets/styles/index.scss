@@ -8,15 +8,19 @@ $header-color: #0cc;
 
 body {
   background-color: $background-color;
-  color: $font-color;
 }
 
 h1 {
   color: $header-color;
 }
 
+input {
+  color: $background-color;
+}
+
 .square {
   border: 3px solid $header-color;
+  color: $font-color;
   font-size: 30px;
   height: 150px;
 }
