@@ -75,7 +75,7 @@ const victoryCheck = function victoryCheck () {
 }
 
 const onUpdateGame = function updateGame (index, value) {
-  const delta = {
+  const data = {
     game: {
       cell: {
         index,
@@ -88,12 +88,12 @@ const onUpdateGame = function updateGame (index, value) {
   // then check for victory
   state.game.game.over = victoryCheck()
   if (state.game.game.over) {
-    delta.game.over = state.game.game.over
+    data.game.over = state.game.game.over
   }
   // then update game on backend if it was created on the backend
   console.log('state.game.game', state.game.game)
   if (state.game.game.id) {
-    api.updateGame(delta)
+    api.updateGame(data)
       .then(ui.updateGameSucccess)
       .catch(ui.updateGameFailure)
   }

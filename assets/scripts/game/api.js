@@ -16,8 +16,8 @@ const createGame = function (data) {
   })
 }
 
-const updateGame = function (delta) {
-  console.log('delta in api.js ', delta)
+const updateGame = function (data) {
+  console.log('delta in api.js ', data)
   return $.ajax({
     url: config.apiUrl + '/games/' + state.game.game.id,
     method: 'PATCH',
@@ -25,7 +25,7 @@ const updateGame = function (delta) {
       contentType: 'application/json',
       Authorization: 'Token token=' + store.user.token
     },
-    delta
+    data
   })
 }
 
