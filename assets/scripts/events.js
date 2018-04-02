@@ -11,7 +11,6 @@ const onGameOptions = function onGameOptions () {
 
 const onShowAuth = function onShowAuth () {
   event.preventDefault()
-  console.log('auth display starting!')
   authLogic.showAuth()
 }
 

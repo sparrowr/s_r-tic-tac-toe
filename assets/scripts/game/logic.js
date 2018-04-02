@@ -76,9 +76,11 @@ const victoryCheck = function victoryCheck () {
 
 const onUpdateGame = function updateGame (index, value) {
   const delta = {
-    cell: {
-      index,
-      value
+    game: {
+      cell: {
+        index,
+        value
+      }
     }
   }
   // update game locally
@@ -86,7 +88,7 @@ const onUpdateGame = function updateGame (index, value) {
   // then check for victory
   state.game.game.over = victoryCheck()
   if (state.game.game.over) {
-    delta.over = state.game.game.over
+    delta.game.over = state.game.game.over
   }
   // then update game on backend if it was created on the backend
   console.log('state.game.game', state.game.game)

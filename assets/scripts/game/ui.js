@@ -10,9 +10,10 @@ const updateGameSuccess = function () {
   $('#message').css('background-color', '#cfc')
 }
 
-const updateGameFailure = function () {
+const updateGameFailure = function (data) {
   $('#message').text('Failure updating game')
   $('#message').css('background-color', '#f99')
+  console.log('server returned ', data)
 }
 
 module.exports = {
