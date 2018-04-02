@@ -5,6 +5,18 @@ const createGameFailure = function () {
   $('#message').css('background-color', '#f99')
 }
 
+const updateGameSuccess = function () {
+  $('#message').text('Successfully updated game')
+  $('#message').css('background-color', '#cfc')
+}
+
+const updateGameFailure = function () {
+  $('#message').text('Failure updating game')
+  $('#message').css('background-color', '#f99')
+}
+
 module.exports = {
-  createGameFailure
+  createGameFailure,
+  updateGameSuccess,
+  updateGameFailure
 }

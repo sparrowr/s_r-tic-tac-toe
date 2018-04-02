@@ -6,69 +6,107 @@ const ui = require('./ui')
 const store = require('../store')
 const state = require('./state')
 
-const winHandler = function winHandler (winner) {
-  console.log('please update me to play nicely with the api!')
-  console.log('player ' + winner + ' won')
-  newBoard()
+const moveCounter = function moveCounter () {
+  // return number of squares filled on board
+  let moves = 0
+  for (let i = 0; i < state.game.game.cells.length; i++) {
+    if (state.game.game.cells[i] !== '') {
+      moves++
+    }
+  }
+  return moves
 }
 
-const moveCounter = function moveCounter () {
-  // return number of moves made on board
-  return 9
+const winHandler = function winHandler (winner) {
+  showGameOptions()
+  const winString = 'Player ' + winner + ' has won the game!'
+  $('#game-board').prepend('<h1>' + winString + '</h1>')
 }
 
 const victoryCheck = function victoryCheck () {
-  console.log('please update me to play nicely with the api!')
-  const gameState = state.cells
-  // check for end conditions and handle appropriately
-  if (gameState[4] !== '') {
+  // prepend winner announcement to game board
+  // return T or F
+  if (state.game.game.cells[4] !== '') {
     // check for victory conditions involving the center square
-    if (gameState[4] === gameState[0] && gameState[4] === gameState[8]) {
-      winHandler(gameState[4])
-    } else if (gameState[4] === gameState[2] && gameState[4] === gameState[6]) {
-      winHandler(gameState[4])
-    } else if (gameState[4] === gameState[1] && gameState[4] === gameState[7]) {
-      winHandler(gameState[4])
-    } else if (gameState[4] === gameState[3] && gameState[4] === gameState[5]) {
-      winHandler(gameState[4])
+    if (state.game.game.cells[4] === state.game.game.cells[0] && state.game.game.cells[4] === state.game.game.cells[8]) {
+      winHandler(state.game.game.cells[4])
+      return true
+    } else if (state.game.game.cells[4] === state.game.game.cells[2] && state.game.game.cells[4] === state.game.game.cells[6]) {
+      winHandler(state.game.game.cells[4])
+      return true
+    } else if (state.game.game.cells[4] === state.game.game.cells[1] && state.game.game.cells[4] === state.game.game.cells[7]) {
+      winHandler(state.game.game.cells[4])
+      return true
+    } else if (state.game.game.cells[4] === state.game.game.cells[3] && state.game.game.cells[4] === state.game.game.cells[5]) {
+      winHandler(state.game.game.cells[4])
+      return true
     }
   }
-  if (gameState[0] !== '') {
+  if (state.game.game.cells[0] !== '') {
     // check for victory conditions involving the upper-left corner
-    if (gameState[0] === gameState[1] && gameState[0] === gameState[2]) {
-      winHandler(gameState[0])
-    } else if (gameState[0] === gameState[3] && gameState[0] === gameState[6]) {
-      winHandler(gameState[0])
+    if (state.game.game.cells[0] === state.game.game.cells[1] && state.game.game.cells[0] === state.game.game.cells[2]) {
+      winHandler(state.game.game.cells[0])
+      return true
+    } else if (state.game.game.cells[0] === state.game.game.cells[3] && state.game.game.cells[0] === state.game.game.cells[6]) {
+      winHandler(state.game.game.cells[0])
+      return true
     }
   }
-  if (gameState[8] !== '') {
+  if (state.game.game.cells[8] !== '') {
     // check for victory conditions involving the lower-right corner
-    if (gameState[8] === gameState[2] && gameState[8] === gameState[5]) {
-      winHandler(gameState[8])
-    } else if (gameState[8] === gameState[7] && gameState[8] === gameState[6]) {
-      winHandler(gameState[8])
+    if (state.game.game.cells[8] === state.game.game.cells[2] && state.game.game.cells[8] === state.game.game.cells[5]) {
+      winHandler(state.game.game.cells[8])
+      return true
+    } else if (state.game.game.cells[8] === state.game.game.cells[7] && state.game.game.cells[8] === state.game.game.cells[6]) {
+      winHandler(state.game.game.cells[8])
+      return true
     }
   }
   if (moveCounter() === 9) {
-    console.log('board filled with no winner!')
-    newBoard()
+    // board fileld with no winner
+    showGameOptions()
+    const endDeclaration = document.createElement('h2')
+    const endString = 'The game ended in a draw!'
+    endDeclaration.setAttribute('value', endString)
+    document.getElementById('game-area').appendChild(endDeclaration)
+    return true
+  }
+  return false
+}
+
+const onUpdateGame = function updateGame (index, value) {
+  const delta = {
+    cell: {
+      index,
+      value
+    }
+  }
+  // update game locally
+  state.game.game.cells[index] = value
+  // then check for victory
+  state.game.game.over = victoryCheck()
+  if (state.game.game.over) {
+    delta.over = state.game.game.over
+  }
+  // then update game on backend if it was created on the backend
+  console.log('state.game.game', state.game.game)
+  if (state.game.game.id) {
+    api.updateGame(delta)
+      .then(ui.updateGameSucccess)
+      .catch(ui.updateGameFailure)
   }
 }
 
 const tokenSetter = function tokenSetter (id) {
-  console.log('partially updated for API compatibility.')
-  console.log('id is ', id)
   const n = id.split('').pop()
-  const gameState = state.local.cells
-  if (gameState[n] === 0) {
+  if (state.game.game.cells[n] === '' && !state.game.game.over) {
     if (moveCounter() % 2 === 0) {
-      $(id).html('<h1>O</h1>')
-      gameState[n] = 'O'
-    } else {
       $(id).html('<h1>X</h1>')
-      gameState[n] = 'X'
+      onUpdateGame(n, 'X')
+    } else {
+      $(id).html('<h1>O</h1>')
+      onUpdateGame(n, 'O')
     }
-    victoryCheck()
   } else {
     console.log('cannot move there!')
   }
@@ -99,8 +137,7 @@ const newBoard = function newBoard () {
 
 const startNewGame = function startNewGame (data) {
   state.game = data
-  console.log('data in startNewGame is ' + state.game)
-  console.log('partway through updating this to work with the api!')
+  hideGameOptions()
   newBoard()
 }
 
@@ -114,7 +151,12 @@ const playWithLogin = function playWithLogin (event) {
 
 const playWithoutLogin = function playWithoutLogin () {
   event.preventDefault()
-  console.log('I\'m a stub')
+  state.game = {}
+  state.game.game = {}
+  state.game.game.over = false
+  state.game.game.cells = ['', '', '', '', '', '', '', '', '']
+  console.log('state.game', state.game)
+  newBoard()
 }
 
 const hideGameOptions = function hideGameOptions () {

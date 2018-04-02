@@ -6,7 +6,6 @@ const authLogic = require('./auth/logic')
 
 const onGameOptions = function onGameOptions () {
   event.preventDefault()
-  console.log('game is starting!')
   gameLogic.showGameOptions()
 }
 
