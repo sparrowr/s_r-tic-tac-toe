@@ -5,15 +5,14 @@
 # first account (in script): email nobody@srubin.com, pw n
 # second account (on page): email coffee@srubin.com, pw c
 
-curl "http://tic-tac-toe.wdibos.com/sign-up" \
+curl "http://tic-tac-toe.wdibos.com/sign-in" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
   --data '{
     "credentials": {
-      "email":"'"${EMAIL}"'",
-      "password":"'"${PASSWORD}"'",
-      "password_confirmation":"'"${PASSWORD_CONFIRMATION}"'"
+      "email":"coffee@srubin.org",
+      "password":"c"
     }
   }'
 
