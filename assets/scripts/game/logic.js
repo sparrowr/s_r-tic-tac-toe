@@ -161,6 +161,13 @@ const playWithoutLogin = function playWithoutLogin () {
   newBoard()
 }
 
+const showIndex = function showIndex () {
+  event.preventDefault()
+  api.showIndex()
+    .then(ui.showIndexSuccess)
+    .catch(ui.showIndexFailure)
+}
+
 const hideGameOptions = function hideGameOptions () {
   $('#game-area').html('')
 }
@@ -180,7 +187,17 @@ const showGameOptions = function showGameOptions () {
     playLogin.addEventListener('submit', playWithLogin)
     document.getElementById('game-area').appendChild(playLogin)
 
-    // soon: show index all past games, show one past game.
+    // show all past games
+    const showAllGames = document.createElement('form')
+    const showIndexButton = document.createElement('input')
+    showIndexButton.setAttribute('type', 'submit')
+    showIndexButton.setAttribute('class', 'btn')
+    showIndexButton.setAttribute('value', 'Show all past games')
+    showAllGames.appendChild(showIndexButton)
+    showAllGames.addEventListener('submit', showIndex)
+    document.getElementById('game-area').appendChild(showAllGames)
+
+    // soon: show one past game.
     /*
     const hideOptions = document.createElement('form')
     const hideOptionsButton = document.createElement('input')

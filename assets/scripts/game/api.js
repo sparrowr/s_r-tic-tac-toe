@@ -17,7 +17,6 @@ const createGame = function (data) {
 }
 
 const updateGame = function (data) {
-  console.log('delta in api.js ', data)
   return $.ajax({
     url: config.apiUrl + '/games/' + state.game.game.id,
     method: 'PATCH',
@@ -29,9 +28,21 @@ const updateGame = function (data) {
   })
 }
 
+const showIndex = function () {
+  return $.ajax({
+    url: config.apiUrl + '/games',
+    method: 'GET',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 module.exports = {
   createGame,
-  updateGame
+  updateGame,
+  showIndex
 }
 
 /* /*
