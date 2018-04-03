@@ -45,6 +45,8 @@ const signOutSuccess = function () {
   $('#message').css('background-color', successColor)
   store.user = null
   $('#auth-area').html('')
+  $('#game-board').html('')
+  $('#game-area').html('')
 }
 
 const signOutFailure = function () {
