@@ -118,6 +118,7 @@ const showChangePassword = function showChangePassword () {
 
 const hideAuth = function hideAuth () {
   $('#auth-area').html('')
+  $('#game-area').html('')
 }
 
 const showAuth = function showAuth () {

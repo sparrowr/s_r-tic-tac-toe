@@ -117,7 +117,7 @@ const tokenSetter = function tokenSetter (id) {
     } else {
       $('#game-area').html('<p> It is now player O\'s turn! </p><p> You cannot move there! </p>')
     }
-  } else{
+  } else {
     $('#game-area').html('<p> This game has ended! </p><p> Please begin a new game to keep playing. </p>')
   }
 }
@@ -175,6 +175,7 @@ const showIndex = function showIndex () {
 }
 
 const hideGameOptions = function hideGameOptions () {
+  $('#auth-area').html('')
   $('#game-area').html('')
 }
 

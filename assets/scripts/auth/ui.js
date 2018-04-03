@@ -8,6 +8,7 @@ const signUpSuccess = function () {
   $('#message').text('Successfully signed up')
   $('#message').css('background-color', successColor)
   $('#auth-area').html('')
+  $('#game-area').html('')
 }
 
 const signUpFailure = function () {
@@ -20,6 +21,7 @@ const signInSuccess = function (data) {
   $('#message').css('background-color', successColor)
   store.user = data.user
   $('#auth-area').html('')
+  $('#game-area').html('')
 }
 
 const signInFailure = function () {
