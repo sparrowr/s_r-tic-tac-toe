@@ -2,9 +2,9 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 
-$background-color: #030;
-$font-color: #cfc;
-$header-color: #0f3;
+$background-color: #003;
+$font-color: #cff;
+$header-color: #ccf;
 
 body {
   background-color: $background-color;
@@ -14,6 +14,7 @@ body {
 h1,
 h2 {
   color: $header-color;
+  text-align: center;
 }
 
 input {
