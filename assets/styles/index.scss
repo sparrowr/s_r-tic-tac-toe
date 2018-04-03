@@ -2,9 +2,9 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 
-$background-color: #003;
-$font-color: #9ff;
-$header-color: #0cc;
+$background-color: #030;
+$font-color: #cfc;
+$header-color: #0f3;
 
 body {
   background-color: $background-color;
@@ -27,8 +27,9 @@ input {
 .square {
   border: 3px solid $header-color;
   color: $font-color;
-  font-size: 30px;
-  height: 150px;
+  font-size: 36px;
+  height: 20vh;
+  text-align: center;
 }
 
 .btn {

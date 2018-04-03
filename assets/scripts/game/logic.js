@@ -91,7 +91,6 @@ const onUpdateGame = function updateGame (index, value) {
     data.game.over = state.game.game.over
   }
   // then update game on backend if it was created on the backend
-  console.log('state.game.game', state.game.game)
   if (state.game.game.id) {
     api.updateGame(data)
       .then(ui.updateGameSucccess)
@@ -105,22 +104,22 @@ const tokenSetter = function tokenSetter (id) {
     if (moveCounter() % 2 === 0) {
       $(id).html('<h1>X</h1>')
       onUpdateGame(n, 'X')
+      $('#game-area').html('<p> It is now player O\'s turn! <p>')
     } else {
       $(id).html('<h1>O</h1>')
       onUpdateGame(n, 'O')
+      $('#game-area').html('<p> It is now player X\'s turn! <p>')
     }
   } else {
-    console.log('cannot move there!')
+    $('#game-area').append('<p> You cannot move there! <p>')
   }
 }
 
 const onClickSquare = function onClickSquare () {
-  console.log('a click happen!')
   tokenSetter('#' + this.id)
 }
 
 const newBoard = function newBoard () {
-  console.log('partway through updating newBoard to work with the api.')
   $('#game-board').html('')
   for (let i = 0; i < 3; i++) {
     const thisRow = document.createElement('div')
@@ -153,11 +152,11 @@ const playWithLogin = function playWithLogin (event) {
 
 const playWithoutLogin = function playWithoutLogin () {
   event.preventDefault()
+  $('#game-area').html('')
   state.game = {}
   state.game.game = {}
   state.game.game.over = false
   state.game.game.cells = ['', '', '', '', '', '', '', '', '']
-  console.log('state.game', state.game)
   newBoard()
 }
 
@@ -209,12 +208,11 @@ const showGameOptions = function showGameOptions () {
     document.getElementById('game-area').appendChild(hideOptions)
     */
   } else {
-    // play game without logging in, eventually
     const playNoLogin = document.createElement('form')
     const playNoLoginButton = document.createElement('input')
     playNoLoginButton.setAttribute('type', 'submit')
     playNoLoginButton.setAttribute('class', 'btn')
-    playNoLoginButton.setAttribute('value', 'Play without siging in!')
+    playNoLoginButton.setAttribute('value', 'Play without signing in!')
     playNoLogin.appendChild(playNoLoginButton)
     playNoLogin.addEventListener('submit', playWithoutLogin)
     document.getElementById('game-area').appendChild(playNoLogin)

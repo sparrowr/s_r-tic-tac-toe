@@ -11,6 +11,7 @@ const createGameFailure = function () {
 const updateGameSuccess = function () {
   $('#message').text('Successfully updated game')
   $('#message').css('background-color', successColor)
+  $('#game-area').html('')
 }
 
 const updateGameFailure = function () {
@@ -21,13 +22,9 @@ const updateGameFailure = function () {
 const showIndexSuccess = function (data) {
   $('#message').text('Retrieved games!')
   $('#message').css('background-color', successColor)
-  console.log(data)
-  console.log(data.games[0])
+  $('#game-area').html('')
   $('#game-board').text('Your game history: ')
   for (let i = 0; i < data.games.length; i++) {
-    console.log(i)
-    console.log(data.games[i])
-    console.log(data.games[i].id, data.games[i].cells, data.games[i].over)
     $('#game-board').append('<br>')
     const gameTitle = 'Game ID: ' + data.games[i].id
     $('#game-board').append('<h2>' + gameTitle + '</h2>')

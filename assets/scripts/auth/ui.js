@@ -7,6 +7,7 @@ const successColor = '#393'
 const signUpSuccess = function () {
   $('#message').text('Successfully signed up')
   $('#message').css('background-color', successColor)
+  $('#auth-area').html('')
 }
 
 const signUpFailure = function () {
@@ -18,6 +19,7 @@ const signInSuccess = function (data) {
   $('#message').text('Successfully signed in')
   $('#message').css('background-color', successColor)
   store.user = data.user
+  $('#auth-area').html('')
 }
 
 const signInFailure = function () {
@@ -28,6 +30,7 @@ const signInFailure = function () {
 const changePasswordSuccess = function (data) {
   $('#message').text('Successfully changed password')
   $('#message').css('background-color', successColor)
+  $('#auth-area').html('')
 }
 
 const changePasswordFailure = function () {
@@ -39,6 +42,7 @@ const signOutSuccess = function () {
   $('#message').text('Successfully signed out!')
   $('#message').css('background-color', successColor)
   store.user = null
+  $('#auth-area').html('')
 }
 
 const signOutFailure = function () {
