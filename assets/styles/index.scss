@@ -8,13 +8,19 @@ $header-color: #0cc;
 
 body {
   background-color: $background-color;
+  color: $font-color;
 }
 
-h1 {
+h1,
+h2 {
   color: $header-color;
 }
 
 input {
+  color: $background-color;
+}
+
+.message {
   color: $background-color;
 }
 
