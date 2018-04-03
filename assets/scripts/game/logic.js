@@ -99,6 +99,7 @@ const onUpdateGame = function updateGame (index, value) {
 }
 
 const tokenSetter = function tokenSetter (id) {
+  $('#game-area').html('')
   const n = id.split('').pop()
   if (state.game.game.cells[n] === '' && !state.game.game.over) {
     if (moveCounter() % 2 === 0) {
@@ -110,8 +111,14 @@ const tokenSetter = function tokenSetter (id) {
       onUpdateGame(n, 'O')
       $('#game-area').html('<p> It is now player X\'s turn! <p>')
     }
-  } else {
-    $('#game-area').append('<p> You cannot move there! <p>')
+  } else if (!state.game.game.over) {
+    if (moveCounter() % 2 === 0) {
+      $('#game-area').html('<p> It is now player X\'s turn! </p><p> You cannot move there! </p>')
+    } else {
+      $('#game-area').html('<p> It is now player O\'s turn! </p><p> You cannot move there! </p>')
+    }
+  } else{
+    $('#game-area').html('<p> This game has ended! </p><p> Please begin a new game to keep playing. </p>')
   }
 }
 

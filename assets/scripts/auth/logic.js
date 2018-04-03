@@ -38,6 +38,7 @@ const onSignOut = function (event) {
 
 const showSignUp = function showSignUp () {
   event.preventDefault()
+  hideAuth()
   const signUpForm = document.createElement('form')
   signUpForm.setAttribute('class', 'border')
   signUpForm.setAttribute('id', 'sign-up')
@@ -67,6 +68,7 @@ const showSignUp = function showSignUp () {
 
 const showSignIn = function showSignIn () {
   event.preventDefault()
+  hideAuth()
   const signInForm = document.createElement('form')
   signInForm.setAttribute('class', 'border')
   signInForm.setAttribute('id', 'sign-up')
@@ -91,6 +93,7 @@ const showSignIn = function showSignIn () {
 
 const showChangePassword = function showChangePassword () {
   event.preventDefault()
+  hideAuth()
   const changePasswordForm = document.createElement('form')
   changePasswordForm.setAttribute('class', 'border')
   changePasswordForm.setAttribute('id', 'change-password')
