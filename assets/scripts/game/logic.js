@@ -153,8 +153,7 @@ const startNewGame = function startNewGame (data) {
   newBoard()
 }
 
-const playWithLogin = function playWithLogin (event) {
-  event.preventDefault()
+const playWithLogin = function playWithLogin () {
   const tmp = {}
   api.createGame(tmp)
     .then(startNewGame)
