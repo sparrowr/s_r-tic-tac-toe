@@ -17,31 +17,30 @@ const turnOff = function turnOff () {
   status = false
 }
 
-const moveToDraw = function moveToDraw () {
-  // winning isn't possible, try to stop X from winning
-  const possWins = []
-  for (let i = 0; i < winConditions.length; i++) {
-    let possible = true
-    for (let j = 0; j < winConditions[i].length; j++) {
-      if (state.game.game.cells[winConditions[i][j]] === 'O') {
-        possible = false
+const winNow = function winNow (player, possWins) {
+  // if player can end tic tac toe game by moving somewhere, move there and return true
+  // else return false
+  for (let i = 0; i < possWins.length; i++) {
+    let m = 0
+    for (let j = 0; j < possWins[i].length; j++) {
+      if (state.game.game.cells[possWins[i][j]] === player) {
+        m++
       }
     }
-    if (possible) {
-      possWins.push(winConditions[i])
+    if (m === 2) {
+      for (let j = 0; j < possWins[i].length; j++) {
+        if (state.game.game.cells[possWins[i][j]] === '') {
+          logic.tokenSetter('#square' + possWins[i][j])
+          return true
+        }
+      }
     }
   }
+  return false
+}
 
-  if (possWins.length === 0) {
-    // it's not possible for either player to win, move in lowest-index open space
-    for (let i = 0; i < state.game.game.cells.length; i++) {
-      if (state.game.game.cells[i] === '') {
-        logic.tokenSetter('#square' + i)
-        return
-      }
-    }
-  }
-  // find spot that gives X best chance of winning
+const bestNonWinMove = function bestNonWinMove (possWins) {
+  // find the empty square that appears most often in player's list of possible wins, move there
   const possWinsFreq = []
   let dup = false
   for (let i = 0; i < possWins.length; i++) {
@@ -69,77 +68,61 @@ const moveToDraw = function moveToDraw () {
   logic.tokenSetter('#square' + possWinsFreq[best][0])
 }
 
-const move = function move () {
-  // make sure game isn't over
-  if (!state.game.game.over) {
-    // if (state.game.game.cells[n] === '' && !state.game.game.over)
-    /* attempt to move in lowest open space
-    for (let i = 0; i < state.game.game.cells.length; i++) {
-      if (state.game.game.cells[i] === '') {
-        logic.tokenSetter('#square' + i)
-        return
-    } */
-    const possWins = []
-    // see if it's possible to win at all
-    for (let i = 0; i < winConditions.length; i++) {
-      let possible = true
-      for (let j = 0; j < winConditions[i].length; j++) {
-        if (state.game.game.cells[winConditions[i][j]] === 'X') {
-          possible = false
-        }
-      }
-      if (possible) {
-        possWins.push(winConditions[i])
+const getWins = function getWins (player) {
+  // return array of possible wins for player - expects player to be X or O
+  let opponent = 'X'
+  if (player === 'X') {
+    opponent = 'O'
+  }
+  const wins = []
+  for (let i = 0; i < winConditions.length; i++) {
+    let possible = true
+    for (let j = 0; j < winConditions[i].length; j++) {
+      if (state.game.game.cells[winConditions[i][j]] === opponent) {
+        possible = false
       }
     }
-    // if winning isn't possible, try to stop your opponent from winning
-    if (possWins.length === 0) {
-      moveToDraw()
+    if (possible) {
+      wins.push(winConditions[i])
+    }
+  }
+  return wins
+}
+
+const move = function () {
+  // new algorithm! summary:
+  // a. exit without trying to move if game is over
+  if (state.game.game.over) {
+    return
+  }
+  // b. identify current possible wins for O
+  const oWins = getWins('O')
+  // c. identify current possible wins for X
+  const xWins = getWins('X')
+  // d. if any of the current possible wins for O can be used to win now, choose that move and exit
+  if (winNow('O', oWins)) {
+    return
+  }
+  // e. if any of the current possible wins for X can be used to win now, choose that move and exit
+  if (winNow('X', xWins)) {
+    return
+  }
+  // f. find the empty square that appears most often in O's list of possible wins, move there and exit
+  if (oWins.length !== 0) {
+    bestNonWinMove(oWins)
+    return
+  }
+  // g. find the empty square that appears most often in X's list of possible wins, move there and exit
+  if (xWins.length !== 0) {
+    bestNonWinMove(xWins)
+    return
+  }
+  // h. if it's not possible for X or O to win, move to lowest-index open square and exit
+  for (let i = 0; i < state.game.game.cells.length; i++) {
+    if (state.game.game.cells[i] === '') {
+      logic.tokenSetter('#square' + i)
       return
     }
-    // if it's possible to win right now, do so
-    for (let i = 0; i < possWins.length; i++) {
-      let m = 0
-      for (let j = 0; j < possWins[i].length; j++) {
-        if (state.game.game.cells[possWins[i][j]] === 'O') {
-          m++
-        }
-      }
-      if (m === 2) {
-        for (let j = 0; j < possWins[i].length; j++) {
-          if (state.game.game.cells[possWins[i][j]] === '') {
-            logic.tokenSetter('#square' + possWins[i][j])
-            return
-          }
-        }
-      }
-    }
-    // find thing that appears in possWins most often and is empty
-    const possWinsFreq = []
-    let dup = false
-    for (let i = 0; i < possWins.length; i++) {
-      for (let j = 0; j < possWins[i].length; j++) {
-        if (state.game.game.cells[possWins[i][j]] === '') {
-          dup = false
-          for (let k = 0; k < possWinsFreq.length; k++) {
-            if (possWinsFreq[k][0] === possWins[i][j]) {
-              dup = true
-              possWinsFreq[k][1]++
-            }
-          }
-          if (!dup) {
-            possWinsFreq.push([possWins[i][j], 1])
-          }
-        }
-      }
-    }
-    let best = 0
-    for (let i = 1; i < possWinsFreq.length; i++) {
-      if (possWinsFreq[i][1] > possWinsFreq[best][1]) {
-        best = i
-      }
-    }
-    logic.tokenSetter('#square' + possWinsFreq[best][0])
   }
 }
 
