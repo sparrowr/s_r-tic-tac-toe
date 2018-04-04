@@ -154,7 +154,6 @@ const startNewGame = function startNewGame (data) {
 }
 
 const playWithLogin = function playWithLogin (event) {
-  event.preventDefault()
   const tmp = {}
   api.createGame(tmp)
     .then(startNewGame)
@@ -162,7 +161,6 @@ const playWithLogin = function playWithLogin (event) {
 }
 
 const playWithoutLogin = function playWithoutLogin () {
-  event.preventDefault()
   $('#game-area').html('')
   state.game = {}
   state.game.game = {}
@@ -234,12 +232,9 @@ const showGameOptions = function showGameOptions () {
   const playButton = document.createElement('input')
   playButton.setAttribute('type', 'submit')
   playButton.setAttribute('class', 'btn')
-  playButton.setAttribute('value', 'Play game')
-  playGame.appendChild(playButton)
-  playGame.addEventListener('submit', showAlgorithmOptions)
-  document.getElementById('game-area').appendChild(playGame)
 
   if (store.user) {
+    playButton.setAttribute('value', 'Play game while signed in!')
     // show all past games
     const showAllGames = document.createElement('form')
     const showIndexButton = document.createElement('input')
@@ -249,7 +244,13 @@ const showGameOptions = function showGameOptions () {
     showAllGames.appendChild(showIndexButton)
     showAllGames.addEventListener('submit', showIndex)
     document.getElementById('game-area').appendChild(showAllGames)
+  } else {
+    playButton.setAttribute('value', 'Play game')
   }
+
+  playGame.appendChild(playButton)
+  playGame.addEventListener('submit', showAlgorithmOptions)
+  document.getElementById('game-area').appendChild(playGame)
 
   // hide game options
   const hideOptions = document.createElement('form')

@@ -5,6 +5,8 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 $background-color: #003;
 $font-color: #cff;
 $header-color: #ccf;
+$danger-color: #ff0;
+$danger-text: #003;
 
 body {
   background-color: $background-color;
@@ -19,6 +21,11 @@ h2 {
 
 input {
   color: $background-color;
+}
+
+.warning {
+  background-color: $danger-color;
+  color: $danger-text
 }
 
 .message {
