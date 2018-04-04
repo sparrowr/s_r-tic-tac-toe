@@ -153,11 +153,7 @@ const startNewGame = function startNewGame (data) {
   newBoard()
 }
 
-<<<<<<< HEAD
-const playWithLogin = function playWithLogin (event) {
-=======
 const playWithLogin = function playWithLogin () {
->>>>>>> algo
   const tmp = {}
   api.createGame(tmp)
     .then(startNewGame)
