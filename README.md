@@ -47,6 +47,8 @@ These user stories were derived from requirements, without contact with actual u
 - As a player, I don't want my opponent to be able to place invalid tokens.
 - As a player, I don't want the game to become unresponsive, frozen, or stuck.
 
+I approached this project methodically, by taking notes and following the guidelines presented in class to design, build, and test components. I created the game itself, then the authentication system, then attached the game to the game API, then made several fixes to the UI and to this document. 
+
 ## Additional Resources
 
 - [Modern Javascript Explained for Dinosaurs](https://medium.com/@peterxjang/modern-javascript-explained-for-dinosaurs-f695e9747b70)
